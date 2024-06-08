@@ -16,6 +16,20 @@ function Calculator() {
 
   const handleEqual = () => {
     try {
+      // Special case for division by zero
+      if (input.includes("/0")) {
+        const parts = input.split("/");
+        const numerator = parseFloat(parts[0]);
+        const denominator = parseFloat(parts[1]);
+        if (denominator === 0) {
+          if (numerator === 0) {
+            setAns("NaN");
+          } else {
+            setAns("Infinity");
+          }
+          return;
+        }
+      }
       // Eval caution: for a real app, use a safe math parser
       const result = eval(input);
       setAns(result);
