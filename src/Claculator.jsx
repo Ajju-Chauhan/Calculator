@@ -6,7 +6,7 @@ function Calculator() {
   const [ans, setAns] = useState('');
 
   const handleButton = (value) => {
-    setInput(input + value);
+    setInput(prev => prev + value);
   };
 
   const handleClear = () => {
@@ -16,7 +16,8 @@ function Calculator() {
 
   const handleEqual = () => {
     try {
-      const result = eval(input); // Be cautious using eval in real applications
+      // Eval caution: for a real app, use a safe math parser
+      const result = eval(input);
       setAns(result);
     } catch (error) {
       setAns('Error');
@@ -26,7 +27,7 @@ function Calculator() {
   return (
     <div className='mainDiv'>
       <h3>React Calculator</h3>
-      <div className='input'>{input}</div>
+      <input type="text" className='input' value={input} readOnly />
       <div className='ansdiv'>{ans}</div>
       <div className="buttonContainer">
         <button className='button' onClick={() => handleButton('7')}>7</button>
