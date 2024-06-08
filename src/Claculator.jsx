@@ -16,30 +16,20 @@ function Calculator() {
 
   const handleEqual = () => {
     try {
-      // Check if the input ends with an operator
-      if (/[+\-*/]$/.test(input)) {
+      // Check for incomplete expressions (e.g., ends with an operator or is empty)
+      if (
+        input === '' ||
+        input.endsWith('+') ||
+        input.endsWith('-') ||
+        input.endsWith('*') ||
+        input.endsWith('/')
+      ) {
         setAns('Error');
-        return;
+      } else {
+        // Eval caution: for a real app, use a safe math parser
+        const result = eval(input);
+        setAns(result);
       }
-
-      // Special case for division by zero
-      if (input.includes("/0")) {
-        const parts = input.split("/");
-        const numerator = parseFloat(parts[0]);
-        const denominator = parseFloat(parts[1]);
-        if (denominator === 0) {
-          if (numerator === 0) {
-            setAns("NaN");
-          } else {
-            setAns("Infinity");
-          }
-          return;
-        }
-      }
-
-      // Eval caution: for a real app, use a safe math parser
-      const result = eval(input);
-      setAns(result);
     } catch (error) {
       setAns('Error');
     }
