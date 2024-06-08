@@ -16,6 +16,12 @@ function Calculator() {
 
   const handleEqual = () => {
     try {
+      // Check if the input ends with an operator
+      if (/[+\-*/]$/.test(input)) {
+        setAns('Error');
+        return;
+      }
+
       // Special case for division by zero
       if (input.includes("/0")) {
         const parts = input.split("/");
@@ -30,6 +36,7 @@ function Calculator() {
           return;
         }
       }
+
       // Eval caution: for a real app, use a safe math parser
       const result = eval(input);
       setAns(result);
